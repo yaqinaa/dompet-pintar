@@ -119,6 +119,22 @@
         .stats-grid {
             grid-template-columns: 1fr; /* 1 kolom untuk mobile */
         }
+        .page-header-right {
+        flex-direction: column;
+        align-items: flex-end; /* supaya rata kanan */
+        width: 100%;
+    }
+
+    .page-header-right form,
+    .page-header-right .action-buttons {
+        width: 100%;
+    }
+
+    .page-header-right .action-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
     }
     .stat-card {
         background-color: white;
