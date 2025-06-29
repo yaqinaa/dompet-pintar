@@ -10,7 +10,7 @@ use App\Http\Controllers\IncomeTransactionController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
-use Laravel\Socialite\Facades\Socialite;
+
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -18,11 +18,6 @@ Route::get('/', function () {
     }
     return view('landing');
 })->name('login');
-
-Route::get('/auth/redirect', function () {
-    $redirectUrl = Socialite::driver('google')->redirect()->getTargetUrl();
-    dd($redirectUrl); // untuk lihat apakah redirect_uri-nya dikirim
-});
 
 Route::middleware('auth')->group(function () {
     // Resource route
