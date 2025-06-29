@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable(); // Jika expenses_category bisa dibuat per user
             $table->timestamps();
 
-            $table->foreign('allocation_category_id')->references('id')->on('allocation_categories')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
             $table->unique(['allocation_category_id', 'name', 'user_id']);
