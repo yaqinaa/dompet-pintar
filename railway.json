@@ -1,0 +1,19 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "nixpacksConfig": {
+      "providers": ["php"],
+      "pkgs": ["apacheHttpd24", "php82", "php82Packages.composer"],
+      "start": {
+        "cmd": "vendor/bin/heroku-php-apache2 public/"
+      }
+    }
+  },
+  "deploy": {
+    "numReplicas": 1,
+    "sleepApplication": true,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  }
+}
