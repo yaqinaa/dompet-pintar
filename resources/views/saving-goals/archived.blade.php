@@ -12,7 +12,6 @@
         padding: 1rem;
     }
 
-    /* Header */
     .dashboard-header {
         display: flex;
         justify-content: space-between;
@@ -48,7 +47,6 @@
         border-radius: 9999px;
     }
 
-    /* Action Bar */
     .action-bar {
         display: flex;
         justify-content: space-between;
@@ -114,16 +112,11 @@
         background-color: #c6e659;
     }
 
-    /* Table */
-    .table-responsive {
-        overflow-x: auto;
-    }
-
     .saving-goals-table {
         width: 100%;
         border-collapse: separate;
         border-spacing: 0 0.75rem;
-        min-width: 768px;
+        
     }
 
     .saving-goals-table thead th {
@@ -166,7 +159,6 @@
         text-align: right;
     }
 
-    /* Progress Bar */
     .progress-container .progress-info {
         display: flex;
         gap: 0.5rem;
@@ -215,7 +207,6 @@
         border-color: #FACC15;
     }
 
-    /* Responsive Fix */
     @media (max-width: 768px) {
         .dashboard-header {
             flex-direction: column;
@@ -226,15 +217,48 @@
             width: 100%;
             justify-content: space-between;
         }
+
+        .saving-goals-table thead {
+            display: none;
+        }
+
+        .saving-goals-table tbody tr {
+            display: block;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .saving-goals-table tbody td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+        }
+
+        .saving-goals-table tbody td::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .saving-goals-table tbody td:last-child {
+            border-bottom: none;
+            justify-content: flex-end;
+        }
+
+        .progress-container .progress-info {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 </style>
 @endpush
 
 @section('content')
 <div class="container-fluid py-4">
-    @php
-        $user = auth()->user();
-    @endphp
+    @php $user = auth()->user(); @endphp
 
     <header class="dashboard-header">
         <h1>Archived</h1>
@@ -289,11 +313,11 @@
                         $progress = $goal->target_amount > 0 ? ($goal->saved_amount / $goal->target_amount) * 100 : 0;
                     @endphp
                     <tr>
-                        <td class="fw-bold">{{ $goal->goal_name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($goal->deadline)->setTimezone('Asia/Jakarta')->format('d M Y') }}</td>
-                        <td>Rp. {{ number_format($goal->target_amount, 0, ',', '.') }}</td>
-                        <td class="fw-bold">Rp. {{ number_format($goal->saved_amount, 0, ',', '.') }}</td>
-                        <td>
+                        <td class="fw-bold" data-label="Nama Tabungan">{{ $goal->goal_name }}</td>
+                        <td data-label="Deadline">{{ \Carbon\Carbon::parse($goal->deadline)->setTimezone('Asia/Jakarta')->format('d M Y') }}</td>
+                        <td data-label="Target">Rp. {{ number_format($goal->target_amount, 0, ',', '.') }}</td>
+                        <td class="fw-bold" data-label="Tabungan Saat Ini">Rp. {{ number_format($goal->saved_amount, 0, ',', '.') }}</td>
+                        <td data-label="Progres">
                             <div class="progress-container">
                                 <div class="progress-info">
                                     <span class="percentage">{{ round($progress) }}%</span>
@@ -304,10 +328,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            <div class="action-cell">
-                                <a href="#" class="btn btn-detail" data-bs-toggle="modal" data-bs-target="#detailGoalModal{{ $goal->id }}">Detail</a>
-                            </div>
+                        <td class="action-cell" data-label="Action">
+                            <a href="#" class="btn btn-detail" data-bs-toggle="modal" data-bs-target="#detailGoalModal{{ $goal->id }}">Detail</a>
                         </td>
                     </tr>
                 @empty

@@ -116,7 +116,7 @@
       margin-right: 0.8rem;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .hero-card {
         padding: 2rem;
       }
@@ -124,6 +124,57 @@
       .hero-card h1 {
         font-size: 2rem;
       }
+       header {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-text h2 {
+    font-size: 2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .hero-img img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .features {
+    padding: 2rem 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  .feature {
+    padding: 1.5rem;
+  }
+
+  .google-btn {
+    width: 100%;
+    justify-content: center;
+  }
     }
   </style>
 </head>
@@ -145,7 +196,7 @@
       <a href="#download">Coba Sekarang</a>
     </div>
     <div class="hero-img">
-      <img src="/assets/Untitled design.png" alt="Dashboard Dompet Pintar">
+      <img src="/assets/logo.png" alt="Dashboard Dompet Pintar">
 
     </div>
   </section>

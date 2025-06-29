@@ -259,65 +259,63 @@
     @endphp
 <div class="container-fluid py-4 page-container">
     {{-- Header utama yang konsisten --}}
-    <header class="dashboard-header">
-        <h1>Alokasi</h1>
-        <div class="header-actions">
-            {{-- Saya hapus ikon search karena tidak ada di desain target, bisa ditambahkan kembali jika perlu --}}
-            <i class="bi bi-bell-fill"></i>
-            <div class="user-profile dropdown">
-                <a href="#" class="d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ $user->avatar ?? asset('assets/default-avatar.png') }}" alt="User Avatar">
-                    <span class="d-none d-sm-inline mx-2">{{ $user->name }}</span><i class="bi bi-chevron-down"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Profile</a></li><li><hr class="dropdown-divider"></li><li><a class="dropdown-item" href="#">Logout</a></li>
-                </ul>
-            </div>
+    <header class="dashboard-header d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+    <h1 class="mb-0">Alokasi</h1>
+    <div class="d-flex align-items-center gap-3">
+        <i class="bi bi-bell-fill"></i>
+        <div class="user-profile dropdown">
+            <a href="#" class="d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ $user->avatar ?? asset('assets/default-avatar.png') }}" alt="User Avatar" width="32" height="32" class="rounded-circle object-fit-cover">
+                <span class="d-none d-sm-inline mx-2">{{ $user->name }}</span>
+                <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
         </div>
-    </header>
+    </div>
+</header>
 
-    {{-- Header Halaman Spesifik --}}
-<div class="page-header mt-4">
+{{-- Header Halaman Spesifik --}}
+<div class="page-header flex-wrap d-flex justify-content-between gap-3 align-items-start align-items-md-center">
     <div class="page-header-left">
         <h1>Alokasi Penghasilan</h1>
         <p>Kelola dan pantau alokasi penghasilan bulanan Anda</p>
     </div>
-    <div class="page-header-right d-flex align-items-center gap-3">
+
+    <div class="page-header-right d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2">
         <!-- Form Bulan -->
-        <form method="GET" action="{{ route('income-allocations.index') }}" class="month-filter-form d-flex align-items-center gap-2">
+        <form method="GET" action="{{ route('income-allocations.index') }}" class="month-filter-form d-flex align-items-center gap-2 w-100 w-md-auto">
             <label for="tanggal" class="mb-0">Pilih Bulan:</label>
             <input type="month" id="tanggal" name="tanggal" class="month-input" value="{{ $filterDate ?? \Carbon\Carbon::now()->format('Y-m') }}" onchange="this.form.submit()">
         </form>
 
-        <!-- Action Buttons -->
-        <div class="action-buttons d-flex align-items-center gap-2">
-    @if ($allocation)
-        {{-- Tombol Edit sebagai elemen terpisah --}}
-        <button type="button" class="btn btn-edit-alloc" data-bs-toggle="modal" data-bs-target="#editDataModal">
-            <i class="fas fa-edit"></i> Edit
-        </button>
-
-        {{-- Form Hapus sebagai elemen terpisah --}}
-        <form action="{{ route('income-allocations.destroy', $allocation->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-delete-alloc" onclick="return confirm('Yakin ingin menghapus data ini?')">
-                <i class="bi bi-trash-fill"></i> Hapus
-            </button>
-        </form>
-    @elseif (!$allocation && $canAddData)
-        {{-- Tombol Tambah Data --}}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
-            <i class="bi bi-plus-lg"></i> Tambah Data
-        </button>
-    @elseif (!$allocation && !$canAddData)
-        {{-- Pesan Peringatan --}}
-        <div class="alert alert-warning-inline">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <span>Tidak bisa menambah data</span>
+        <!-- Tombol Aksi -->
+        <div class="action-buttons d-flex flex-column flex-md-row gap-2 w-100 w-md-auto">
+            @if ($allocation)
+                <button type="button" class="btn btn-edit-alloc w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <form action="{{ route('income-allocations.destroy', $allocation->id) }}" method="POST" class="w-100 w-md-auto">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-delete-alloc w-100 w-md-auto" onclick="return confirm('Yakin ingin menghapus data ini?')">
+                        <i class="bi bi-trash-fill"></i> Hapus
+                    </button>
+                </form>
+            @elseif (!$allocation && $canAddData)
+                <button type="button" class="btn btn-primary w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
+                    <i class="bi bi-plus-lg"></i> Tambah Data
+                </button>
+            @elseif (!$allocation && !$canAddData)
+                <div class="alert alert-warning-inline w-100 w-md-auto">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span>Tidak bisa menambah data</span>
+                </div>
+            @endif
         </div>
-    @endif
-</div>
     </div>
 </div>
 
