@@ -2,14 +2,18 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "nixpacks": {
-      "pkgs": [
-        "apacheHttpd24",
-        "php82",
-        "php82Packages.composer"
-      ],
-      "installCommand": "composer install --no-dev --optimize-autoloader",
-      "startCommand": "vendor/bin/heroku-php-apache2 public/"
+    "nixpacksConfig": {
+      "phases": {
+        "setup": {
+          "nixPkgs": ["...", "php82", "apacheHttpd24", "php82Packages.composer"]
+        },
+        "install": {
+          "cmd": "composer install --no-dev --optimize-autoloader"
+        }
+      },
+      "start": {
+        "cmd": "vendor/bin/heroku-php-apache2 public/"
+      }
     }
   },
   "deploy": {
