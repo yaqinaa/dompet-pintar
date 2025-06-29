@@ -104,7 +104,7 @@
     }
 
     .btn-tambah {
-        background-color: var(--green-light);
+        background-color: var(--green-light, #A3D959);
         color: #1F2937;
     }
 

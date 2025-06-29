@@ -90,7 +90,7 @@
         border: none;
     }
     .btn-tambah {
-        background-color: var(--green-light);
+        background-color: var(--green-light, #A3D959);
         color: #1F2937;
     }
     .btn-archived {
@@ -280,12 +280,13 @@
     }
 
     .user-profile span {
-        display: inline !important;
+        display: none !important;
     }
 
     .user-profile i.bi-chevron-down {
-        display: none;
+        display: inline;
     }
+    
 }
 </style>
 @endpush
