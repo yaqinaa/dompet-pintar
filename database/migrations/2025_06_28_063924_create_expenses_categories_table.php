@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('expenses_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('allocation_category_id'); // Foreign key ke tabel allocation_categories
             $table->string('name'); // Contoh: 'Belanja Bulanan', 'Transportasi', 'Makan di Luar', 'Investasi', 'Edukasi'
             $table->unsignedBigInteger('user_id')->nullable(); // Jika expenses_category bisa dibuat per user
             $table->timestamps();
