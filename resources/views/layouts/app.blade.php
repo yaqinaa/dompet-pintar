@@ -74,76 +74,57 @@
             font-weight: 600;
         }
 
-        /* ===================== CSS DASHBOARD FINAL (DENGAN IKON) ===================== */
-        :root {
-            --body-bg: #FFFFFF; --card-bg: #FFFFFF; --text-primary: #212529; --text-secondary: #8A92A6; 
-            --border-color: #E9ECEF; --green-dark: #1E7A44; --green-light: #A3D959; --yellow-light: #E8E24A;
-            --yellow-dark: #D4C936; --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); --card-border-radius: 12px;
+        @media (max-width: 768px) {
+        .sidebar {
+            position: fixed;
+            left: -240px;
+            top: 0;
+            z-index: 999;
+            height: 100%;
+            transition: left 0.3s ease;
         }
+
+        .sidebar.show {
+            left: 0;
+        }
+
         .main-content {
-            flex: 1; padding: 0px 32px; background-color: var(--body-bg);
-            font-family: 'Inter', sans-serif; color: var(--text-primary);
+            flex: 1;
+            padding: 1rem;
+            width: 100%;
         }
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .dashboard-header h1 { font-weight: 700; font-size: 1rem; margin: 0; }
-        .header-actions { display: flex; align-items: center; gap: 1.25rem; }
-        .header-actions .bi { font-size: 1rem; cursor: pointer; color: var(--text-secondary); }
-        .user-profile { display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem; }
-        .user-profile img { width: 40px; height: 40px; border-radius: 50%; }
-        .custom-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--card-border-radius); box-shadow: none; padding: 1.5rem; height: 100%; }
 
-        /* --- KELAS BARU UNTUK SUMMARY CARD DENGAN IKON --- */
-        .summary-card { padding: 1rem; } /* Padding diubah agar lebih pas dengan ikon */
-        .summary-card-body {
+        .mobile-toggle {
             display: flex;
             align-items: center;
-            gap: 1rem; /* Jarak antara ikon dan teks */
-        }
-        .summary-card-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 10px; /* Sesuai gambar, rounded square bukan lingkaran penuh */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0; /* Mencegah ikon mengecil */
-        }
-        .summary-card-icon i {
-            font-size: 0.75rem; /* Ukuran ikon di dalam kotak */
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: #f5f6f8;
+            border-bottom: 1px solid #ddd;
         }
 
-        /* Style untuk ikon di kartu GELAP (Total Saldo) */
-        .summary-card.dark .summary-card-icon {
-            background-color: rgba(163, 217, 89, 0.2); /* Hijau muda transparan */
-        }
-        .summary-card.dark .summary-card-icon i {
-            color: var(--green-light); /* Warna ikon hijau muda */
+        .mobile-toggle h1 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
         }
 
-        /* Style untuk ikon di kartu PUTIH (Pengeluaran, Tabungan) */
-        .custom-card:not(.dark) .summary-card-icon {
-            background-color: #F0F2F5; /* Abu-abu sangat muda */
+        .mobile-toggle button {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
         }
-        .custom-card:not(.dark) .summary-card-icon i {
-            color: var(--text-secondary); /* Warna ikon abu-abu */
-        }
-        /* --- AKHIR KELAS BARU --- */
 
-        .summary-card.dark { background-color: #2D3748; color: white; border: none; }
-        .summary-card-title { font-size: 0.5rem; color: #A0AEC0; margin-bottom: 0.25rem; font-weight: 500; }
-        .summary-card-amount { font-size: 0.8rem; font-weight: 700; }
-        .card-header-flex { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; margin-bottom: 1rem; }
-        .card-header-flex.with-border { border-bottom: 1px solid var(--border-color); }
-        .card-header-flex h5 { margin: 0; font-weight: 600; font-size: 1rem; }
-        .card-header-flex a { text-decoration: none; font-weight: 500; color: var(--green-dark); font-size: 0.75rem; }
-        .transaction-table { width: 100%; border-collapse: collapse; }
-        .transaction-table th, .transaction-table td { padding: 1rem 0.25rem; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle; font-size: 0.875rem; }
-        .transaction-table th { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 500; padding-bottom: 0.5rem; }
-        .transaction-table tr:last-child td { border-bottom: none; }
-        .saving-transaction-item .fw-bold { font-size: 0.7rem; }
-        .saving-transaction-item .text-muted { font-size: 0.8rem; }
-        .tag { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; }
-        .tag-saving { background-color: #d1fae5; color: #065f46; }
+        /* Supaya konten tidak dibelakang sidebar saat terbuka */
+        body.sidebar-open {
+            overflow: hidden;
+        }
+
+        .wrapper {
+            flex-direction: column;
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -193,6 +174,10 @@
 
         <!-- Konten Utama -->
         <div class="main-content">
+            <div class="mobile-toggle d-md-none">
+                <h1>Dompet Pintar</h1>
+                <button onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            </div>
             @yield('content')
         </div>
     </div>
@@ -201,6 +186,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/open-modal-edit-saving goals.js') }}"></script>
     @stack('scripts')
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const body = document.body;
+            sidebar.classList.toggle('show');
+            body.classList.toggle('sidebar-open');
+        }
+    </script>
     
 </body>
 </html>

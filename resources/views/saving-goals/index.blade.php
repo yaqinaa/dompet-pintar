@@ -7,7 +7,39 @@
     /* ================================================= */
     /* == CSS Kustom Halaman Tabungan (Sesuai Gambar) == */
     /* ================================================= */
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
 
+    .dashboard-header h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+        color: #111827;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header-actions .bi-bell-fill {
+        font-size: 1.2rem;
+        color: #9CA3AF;
+    }
+
+    .user-profile img {
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+        border-radius: 9999px;
+    }
     /* Action Bar (Search & Tombol) */
     .action-bar {
         display: flex;
@@ -180,6 +212,81 @@
         padding: 0.4rem;
         line-height: 1; /* Agar ikon pas di tengah */
     }
+
+    @media (max-width: 768px) {
+    .action-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-form {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .action-buttons {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .saving-goals-table thead {
+        display: none;
+    }
+
+    .saving-goals-table tbody tr {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .saving-goals-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 0.875rem;
+    }
+
+    .saving-goals-table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #6b7280;
+    }
+
+    .saving-goals-table tbody td:last-child {
+        border-bottom: none;
+        justify-content: flex-end;
+    }
+
+    .progress-container .progress-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .user-profile span {
+        display: inline !important;
+    }
+
+    .user-profile i.bi-chevron-down {
+        display: none;
+    }
+}
 </style>
 @endpush
 
@@ -250,11 +357,11 @@
                     $progress = $goal->target_amount > 0 ? ($goal->saved_amount / $goal->target_amount) * 100 : 0;
                 @endphp
                 <tr>
-                    <td class="fw-bold">{{ $goal->goal_name }}</td>
-                    <td>{{ \Carbon\Carbon::parse($goal->deadline)->setTimezone('Asia/Jakarta')->format('d M Y') }}</td>
-                    <td>Rp. {{ number_format($goal->target_amount, 0, ',', '.') }}</td>
-                    <td class="fw-bold">Rp. {{ number_format($goal->saved_amount, 0, ',', '.') }}</td>
-                    <td>
+                    <td class="fw-bold" data-label="Nama Tabungan">{{ $goal->goal_name }}</td>
+                    <td data-label="Deadline">{{ \Carbon\Carbon::parse($goal->deadline)->setTimezone('Asia/Jakarta')->format('d M Y') }}</td>
+                    <td data-label="Target">Rp. {{ number_format($goal->target_amount, 0, ',', '.') }}</td>
+                    <td class="fw-bold" data-label="Tabungan Saat Ini">Rp. {{ number_format($goal->saved_amount, 0, ',', '.') }}</td>
+                    <td data-label="Progres">
                         <div class="progress-container">
                             <div class="progress-info">
                                 <span class="percentage">{{ round($progress) }}%</span>
@@ -265,8 +372,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="action-cell">
-                        <div class="d-flex justify-content-end align-items-center gap-2">
+                    <td class="action-cell" data-label="Action">
 
                             {{-- Logika untuk tombol ARCHIVE yang sudah tercapai --}}
                             @if ($goal->status === 'tercapai' && !$goal->is_archived)
