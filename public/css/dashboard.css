@@ -1,0 +1,137 @@
+:root {
+    --body-bg: #F8F9FA;
+    --card-bg: #FFFFFF;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --border-color: #dee2e6;
+    --green-dark: #1E7A44;
+    --green-light: #A3D959;
+    --yellow-light: #E8E24A;
+    --yellow-dark: #D4C936;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --card-border-radius: 12px;
+}
+
+body {
+    background-color: var(--body-bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+}
+
+/* Main Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.dashboard-header h1 {
+    font-weight: 700;
+}
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.header-actions .bi { /* Lebih spesifik untuk ikon */
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Custom Cards */
+.custom-card {
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.5rem;
+    height: 100%;
+}
+
+/* Summary Cards */
+.summary-card {
+    padding: 1.25rem;
+}
+.summary-card.dark {
+    background-color: #2D3748;
+    color: white;
+}
+.summary-card-title {
+    font-size: 0.9rem;
+    color: #A0AEC0;
+    margin-bottom: 0.5rem;
+}
+.summary-card.dark .summary-card-title {
+    color: #A0AEC0;
+}
+.summary-card-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Tables and Lists */
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.transaction-table th, .transaction-table td {
+    padding: 1rem 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #E2E8F0;
+    vertical-align: middle;
+}
+.transaction-table th {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.transaction-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Card Header Utility */
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    /* Dihapus border bawah dari sini agar bisa diterapkan fleksibel */
+}
+.card-header-flex.with-border {
+    border-bottom: 1px solid #E2E8F0;
+}
+.card-header-flex h5 {
+    margin: 0;
+    font-weight: 600;
+}
+.card-header-flex a {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--green-dark);
+}
+
+/* Tags */
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.tag-saving {
+    background-color: #d1fae5;
+    color: #065f46;
+}
