@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
-            $table->unique(['allocation_category_id', 'name', 'user_id']);
+            
         });
     }
 
