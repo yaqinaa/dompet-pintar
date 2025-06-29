@@ -4,7 +4,14 @@
     "builder": "NIXPACKS",
     "nixpacksConfig": {
       "providers": ["php"],
-      "pkgs": ["apacheHttpd24", "php82", "php82Packages.composer"],
+      "pkgs": [
+        "apacheHttpd24",
+        "php82",
+        "php82Packages.composer"
+      ],
+      "install": {
+        "cmd": "composer install --no-dev --optimize-autoloader"
+      },
       "start": {
         "cmd": "vendor/bin/heroku-php-apache2 public/"
       }
