@@ -166,7 +166,7 @@
                 <a href="{{ url('/income-allocations') }}" class="{{ request()->is('income-allocations') ? 'active' : '' }}"><i class="fas fa-chart-pie"></i> Alokasi</a>
             </div>
             <div class="bottom">
-                <a href="{{ url('/settings') }}" class="{{ request()->is('settings') ? 'active' : '' }}"><i class="fas fa-cog"></i> Settings</a>
+                <a href="#" class="{{ request()->is('settings') ? 'active' : '' }}"><i class="fas fa-cog"></i> Profile</a>
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
             </div>

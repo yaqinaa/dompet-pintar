@@ -128,9 +128,7 @@
                     <div class="modal-footer">
                         <div class="actions-left">
                             @if (!$goal->is_archived)
-                            @if($goal->saved_amount > 0)
-                                <button type="button" class="btn btn-withdraw" onclick="toggleWithdrawMode(this, true)">Tarik</button>
-                            @endif
+
                             <button class="btn btn-edit" onclick="toggleEditMode(this, true)">Edit</button>
                             @endif
                             <form action="{{ route('saving-goals.destroy', $goal->id) }}" method="POST" class="d-inline">
