@@ -123,17 +123,53 @@
         flex-direction: column;
         align-items: flex-end; /* supaya rata kanan */
         width: 100%;
+        }
+
+        .page-header-right form,
+        .page-header-right .action-buttons {
+            width: 100%;
+        }
+
+        .page-header-right .action-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .actions-table thead {
+        display: none;
     }
 
-    .page-header-right form,
-    .page-header-right .action-buttons {
+    .actions-table, .actions-table tbody, .actions-table tr, .actions-table td {
+        display: block;
         width: 100%;
     }
 
-    .page-header-right .action-buttons {
+    .actions-table tr {
+        margin-bottom: 1rem;
+        border: 1px solid #E2E8F0;
+        border-radius: 10px;
+        padding: 0.75rem;
+        background-color: white;
+    }
+
+    .actions-table td {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        font-size: 0.75rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .actions-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--color-text-secondary);
+    }
+
+    .actions-table td:last-child {
+        border-bottom: none;
     }
     }
     .stat-card {
@@ -403,31 +439,29 @@
             <table class="actions-table">
                 <thead><tr><th>Kategori</th><th>Nominal</th><th>Presentase</th><th>Action</th></tr></thead>
                 <tbody>
-                    @foreach ($dataKategori as $kategori => $data)
-                    <tr>
-                        <td>{{ $kategori }}</td>
-                        <td>Rp. {{ number_format($data['nominal'], 0, ',', '.') }}</td>
-                        <td>{{ $data['persen'] }}%</td>
-                        <td> 
-                            @if ($kategori === 'Tabungan')
-                                {{-- Tombol untuk Alokasi Tujuan Tabungan --}}
-                                <button type="button" class="btn btn-alokasi" data-bs-toggle="modal" data-bs-target="#allocationModal">
-                                    Alokasikan 
-                                </button>
-                            @else
-                                {{-- Tombol untuk Alokasi Pengeluaran (Primer, Sekunder, Tersier) --}}
-                            <button type="button"
-                                    class="btn btn-alokasi open-expense-allocation-modal" {{-- Class ini penting untuk JS --}}
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#expenseAllocationModal"
-                                    data-category-id="{{ $dataKategori[$kategori]['allocation_category_id'] ?? '' }}"> {{-- Hanya kirim ID kategori --}}
-                                Alokasikan 
-                            </button>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
+    @foreach ($dataKategori as $kategori => $data)
+    <tr>
+        <td data-label="Kategori">{{ $kategori }}</td>
+        <td data-label="Nominal">Rp. {{ number_format($data['nominal'], 0, ',', '.') }}</td>
+        <td data-label="Presentase">{{ $data['persen'] }}%</td>
+        <td data-label="Action">
+            @if ($kategori === 'Tabungan')
+                <button type="button" class="btn btn-alokasi" data-bs-toggle="modal" data-bs-target="#allocationModal">
+                    Alokasikan 
+                </button>
+            @else
+                <button type="button"
+                        class="btn btn-alokasi open-expense-allocation-modal"
+                        data-bs-toggle="modal"
+                        data-bs-target="#expenseAllocationModal"
+                        data-category-id="{{ $dataKategori[$kategori]['allocation_category_id'] ?? '' }}">
+                    Alokasikan 
+                </button>
+            @endif
+        </td>
+    </tr>
+    @endforeach
+</tbody>
             </table>
         </div>
     @endif
